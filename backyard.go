@@ -42,10 +42,10 @@ func NewBackyard(s tcell.Screen, f []*Fly, t time.Duration) *Backyard {
 }
 
 func drawBorder(w, h int, s tcell.Screen, style tcell.Style) {
-	s.SetContent(0, 0, '#', nil, style)
-	s.SetContent(0, h-1, '#', nil, style)
-	s.SetContent(w-1, 0, '#', nil, style)
-	s.SetContent(w-1, h-1, '#', nil, style)
+	s.SetContent(0, 0, '\u25E4', nil, style)
+	s.SetContent(0, h-1, '\u25E3', nil, style)
+	s.SetContent(w-1, 0, '\u25E5', nil, style)
+	s.SetContent(w-1, h-1, '\u25E2', nil, style)
 }
 
 func animateFly(w, h int, s tcell.Screen, fly *Fly) {
