@@ -45,16 +45,16 @@ func (f *Fly) Move() {
 // EdgeCheck ensures our fly won't fly beyond the constraints
 // of the space they occupy
 func (f *Fly) EdgeCheck(maxWidth, maxHeight int) {
-	if f.x < 1 || f.x >= maxWidth-2 {
+	if f.x < 1 || f.x >= maxWidth-3 {
 		f.vx *= -1
 	} else {
-		f.vx = Chaos(f.vx)
+		f.vx = Chaos()
 	}
 
 	if f.y < 1 || f.y >= maxHeight-1 {
 		f.vy *= -1
 	} else {
-		f.vy = Chaos(f.vy)
+		f.vy = Chaos()
 	}
 }
 
@@ -72,11 +72,13 @@ func NewFly(w, h int) *Fly {
 }
 
 // Chaos introduces chaotic/unpredictable movement
-func Chaos(d int) int {
-	switch rand.Intn(2) {
+func Chaos() int {
+	switch rand.Intn(3) {
 	case 0:
-		return d * 1
+		return 1
+	case 1:
+		return 0
 	default:
-		return d * -1
+		return -1
 	}
 }
