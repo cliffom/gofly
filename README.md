@@ -19,3 +19,7 @@ make build
 ## Example output
 
 [![asciicast](https://asciinema.org/a/hXJlmaFQU8BDbgCJ22r5RUk6c.svg)](https://asciinema.org/a/hXJlmaFQU8BDbgCJ22r5RUk6c)
+
+## Inspiration
+
+My love for Golang, my fly problem, and Lucas's wasp problem.
