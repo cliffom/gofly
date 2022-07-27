@@ -40,20 +40,29 @@ func main() {
 	// Run the simulation
 	go backyard.Simulate()
 
+	event := make(chan tcell.Event)
+	quit := make(chan struct{})
+	go s.ChannelEvents(event, quit)
+
 	// Enable updates on screen resizing as well as give us an
 	// escape hatch to quit the simulation
 	for {
-		switch event := s.PollEvent().(type) {
-		case *tcell.EventResize:
-			s.Sync()
-		case *tcell.EventKey:
-			if event.Key() == tcell.KeyEscape || event.Key() == tcell.KeyCtrlC {
-				s.Fini()
-				os.Exit(0)
+		select {
+		case ev := <-event:
+			switch event := ev.(type) {
+			case *tcell.EventResize:
+				s.Sync()
+			case *tcell.EventKey:
+				if event.Key() == tcell.KeyEscape || event.Key() == tcell.KeyCtrlC {
+					s.Fini()
+					os.Exit(0)
+				}
 			}
+		case <-quit:
+			s.Fini()
+			os.Exit(0)
 		}
 	}
-
 }
 
 func getScreen() (tcell.Screen, error) {
