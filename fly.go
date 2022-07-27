@@ -45,13 +45,13 @@ func (f *Fly) Move() {
 // EdgeCheck ensures our fly won't fly beyond the constraints
 // of the space they occupy
 func (f *Fly) EdgeCheck(maxWidth, maxHeight int) {
-	if f.x <= 1 || f.x >= maxWidth-1 {
+	if f.x < 1 || f.x >= maxWidth-2 {
 		f.vx *= -1
 	} else {
 		f.vx = Chaos(f.vx)
 	}
 
-	if f.y <= 0-1 || f.y >= maxHeight-1 {
+	if f.y < 1 || f.y >= maxHeight-1 {
 		f.vy *= -1
 	} else {
 		f.vy = Chaos(f.vy)
@@ -60,9 +60,10 @@ func (f *Fly) EdgeCheck(maxWidth, maxHeight int) {
 
 // NewFly returns a, you guessed it, pointer to a new fly
 func NewFly(w, h int) *Fly {
+	minOffset := 1
 	return &Fly{
-		x:     rand.Intn(w),
-		y:     rand.Intn(h),
+		x:     rand.Intn(w-minOffset) + minOffset,
+		y:     rand.Intn(h-minOffset) + minOffset,
 		vx:    1,
 		vy:    1,
 		color: tcell.GetColor(randomcolor.GetRandomColorInHex()),
