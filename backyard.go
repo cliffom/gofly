@@ -18,7 +18,7 @@ func (b *Backyard) Simulate() {
 
 	for {
 		s.Clear()
-		width, height := s.Size()
+		w, h := s.Size()
 
 		for _, fly := range b.Flies {
 			runes := fly.Draw()
@@ -29,11 +29,11 @@ func (b *Backyard) Simulate() {
 
 			// Draw border at corners
 			s.SetContent(0, 0, '#', nil, borderStyle)
-			s.SetContent(0, height-1, '#', nil, borderStyle)
-			s.SetContent(width-1, 0, '#', nil, borderStyle)
-			s.SetContent(width-1, height-1, '#', nil, borderStyle)
+			s.SetContent(0, h-1, '#', nil, borderStyle)
+			s.SetContent(w-1, 0, '#', nil, borderStyle)
+			s.SetContent(w-1, h-1, '#', nil, borderStyle)
 
-			fly.EdgeCheck(width, height)
+			fly.EdgeCheck(w, h)
 			fly.Move()
 		}
 		s.Show()
