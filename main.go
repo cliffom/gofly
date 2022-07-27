@@ -48,21 +48,7 @@ func main() {
 	// Enable updates on screen resizing as well as give us an
 	// escape hatch to quit the simulation
 	for {
-		select {
-		case ev := <-event:
-			switch event := ev.(type) {
-			case *tcell.EventResize:
-				s.Sync()
-			case *tcell.EventKey:
-				if event.Key() == tcell.KeyEscape || event.Key() == tcell.KeyCtrlC {
-					s.Fini()
-					os.Exit(0)
-				}
-			}
-		case <-quit:
-			s.Fini()
-			os.Exit(0)
-		}
+		eventHandler(event, quit, s)
 	}
 }
 
@@ -82,4 +68,22 @@ func getScreen() (tcell.Screen, error) {
 	s.SetStyle(defStyle)
 
 	return s, nil
+}
+
+func eventHandler(event chan tcell.Event, quit chan struct{}, s tcell.Screen) {
+	select {
+	case ev := <-event:
+		switch event := ev.(type) {
+		case *tcell.EventResize:
+			s.Sync()
+		case *tcell.EventKey:
+			if event.Key() == tcell.KeyEscape || event.Key() == tcell.KeyCtrlC {
+				s.Fini()
+				os.Exit(0)
+			}
+		}
+	case <-quit:
+		s.Fini()
+		os.Exit(0)
+	}
 }
