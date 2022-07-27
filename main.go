@@ -15,19 +15,10 @@ func main() {
 	// How many flies do we want in our yard?
 	numFlies := 50
 
-	// Initialize a new screen
-	s, err := tcell.NewScreen()
+	s, err := getScreen()
 	if err != nil {
-		log.Fatalf("%+v", err)
+		log.Fatalf("error: %v", err)
 	}
-
-	if err := s.Init(); err != nil {
-		log.Fatalf("%+v", err)
-	}
-
-	// Set our default styles
-	defStyle := tcell.StyleDefault.Background(tcell.ColorReset).Foreground(tcell.ColorReset)
-	s.SetStyle(defStyle)
 
 	// Release the flies!
 	width, height := s.Size()
@@ -56,4 +47,22 @@ func main() {
 		}
 	}
 
+}
+
+func getScreen() (tcell.Screen, error) {
+	// Initialize a new screen
+	s, err := tcell.NewScreen()
+	if err != nil {
+		return nil, err
+	}
+
+	if err := s.Init(); err != nil {
+		return nil, err
+	}
+
+	// Set our default styles
+	defStyle := tcell.StyleDefault.Background(tcell.ColorReset).Foreground(tcell.ColorReset)
+	s.SetStyle(defStyle)
+
+	return s, nil
 }
