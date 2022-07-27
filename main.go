@@ -28,6 +28,11 @@ func main() {
 		log.Fatalf("error: %v", err)
 	}
 
+	// Listen for events
+	event := make(chan tcell.Event)
+	quit := make(chan struct{})
+	go s.ChannelEvents(event, quit)
+
 	// Release the flies!
 	flies := make([]*Fly, *numFlies)
 	for i := 0; i < *numFlies; i++ {
@@ -39,10 +44,6 @@ func main() {
 
 	// Run the simulation
 	go backyard.Simulate()
-
-	event := make(chan tcell.Event)
-	quit := make(chan struct{})
-	go s.ChannelEvents(event, quit)
 
 	// Enable updates on screen resizing as well as give us an
 	// escape hatch to quit the simulation
