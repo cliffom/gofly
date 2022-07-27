@@ -37,10 +37,7 @@ func main() {
 	}
 
 	// Initialize our backyard, attract the flies
-	backyard := &Backyard{
-		Screen: s,
-		Flies:  flies,
-	}
+	backyard := NewBackyard(s, flies, 250)
 
 	// Run the simulation
 	go backyard.Simulate()

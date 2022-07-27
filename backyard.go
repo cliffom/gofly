@@ -7,8 +7,9 @@ import (
 )
 
 type Backyard struct {
-	Screen tcell.Screen
-	Flies  []*Fly
+	Screen    tcell.Screen
+	Flies     []*Fly
+	Frametime time.Duration
 }
 
 func (b *Backyard) Simulate() {
@@ -29,6 +30,15 @@ func (b *Backyard) Simulate() {
 			fly.Move()
 		}
 		s.Show()
-		time.Sleep(250 * time.Millisecond)
+		time.Sleep(b.Frametime * time.Millisecond)
+	}
+}
+
+// NewBackyard returns a backyard for our flies to play in
+func NewBackyard(s tcell.Screen, f []*Fly, t time.Duration) *Backyard {
+	return &Backyard{
+		Screen:    s,
+		Flies:     f,
+		Frametime: t,
 	}
 }
