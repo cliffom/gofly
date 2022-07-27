@@ -11,8 +11,6 @@ import (
 )
 
 func main() {
-	rand.Seed(time.Now().UnixNano())
-
 	// How many flies do we want in our yard?
 	numFlies := flag.Int("flies", 50, "How many flies are you inviting?")
 	frameTime := flag.Int("frametime", 250, "How fast do you want your flies to fly (must be at least 100)?")
@@ -27,6 +25,8 @@ func main() {
 	if err != nil {
 		log.Fatalf("error: %v", err)
 	}
+
+	rand.Seed(time.Now().UnixNano())
 
 	// Listen for events
 	event := make(chan tcell.Event)
