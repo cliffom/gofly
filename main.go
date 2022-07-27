@@ -15,7 +15,12 @@ func main() {
 
 	// How many flies do we want in our yard?
 	numFlies := flag.Int("flies", 50, "How many flies are you inviting?")
+	frameTime := flag.Int("frametime", 250, "How fast do you want your flies to fly (must be at least 100)?")
 	flag.Parse()
+
+	if *frameTime < 100 {
+		log.Fatalf("error: frametime must be at least 100")
+	}
 
 	// Initiatlize our screen
 	s, err := getScreen()
@@ -30,7 +35,7 @@ func main() {
 	}
 
 	// Initialize our backyard, attract the flies
-	backyard := NewBackyard(s, flies, 250)
+	backyard := NewBackyard(s, flies, time.Duration(*frameTime))
 
 	// Run the simulation
 	go backyard.Simulate()
