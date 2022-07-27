@@ -52,8 +52,9 @@ func animateFly(w, h int, s tcell.Screen, fly *Fly) {
 	runes := fly.Draw()
 
 	defStyle := tcell.StyleDefault.Background(tcell.ColorReset).Foreground(fly.color)
-	s.SetContent(fly.x, fly.y, runes[0], nil, defStyle)
-	s.SetContent(fly.x+1, fly.y, runes[1], nil, defStyle)
+	for i := 0; i < len(runes); i++ {
+		s.SetContent(fly.x+i, fly.y, runes[i], nil, defStyle)
+	}
 
 	fly.EdgeCheck(w, h)
 	fly.Move()

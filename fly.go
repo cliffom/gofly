@@ -21,10 +21,10 @@ type Fly struct {
 // Draw gives life to our little fly friend
 func (f *Fly) Draw() []rune {
 	frames := []string{
-		"\\/",
-		"--",
-		"/\\",
-		"--",
+		">\u25CF<",
+		"-\u25CF-",
+		">\u25CF<",
+		"-\u25CF-",
 	}
 
 	return []rune(frames[f.frame])
