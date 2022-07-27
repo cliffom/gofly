@@ -61,6 +61,8 @@ func NewFly(w, h int) *Fly {
 	}
 }
 
+// getVelocity determines, from a given 1-dimensional position, if
+// the direction should change or if we can fly chaotically
 func getVelocity(pos, limit int) int {
 	if pos <= 0 {
 		return 1
