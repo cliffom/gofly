@@ -14,6 +14,7 @@ type Backyard struct {
 
 func (b *Backyard) Simulate() {
 	s := b.Screen
+	borderStyle := tcell.StyleDefault.Background(tcell.ColorReset).Foreground(tcell.ColorRed)
 
 	for {
 		s.Clear()
@@ -25,6 +26,12 @@ func (b *Backyard) Simulate() {
 			defStyle := tcell.StyleDefault.Background(tcell.ColorReset).Foreground(fly.color)
 			s.SetContent(fly.x, fly.y, runes[0], nil, defStyle)
 			s.SetContent(fly.x+1, fly.y, runes[1], nil, defStyle)
+
+			// Draw border at corners
+			s.SetContent(0, 0, '#', nil, borderStyle)
+			s.SetContent(0, height-1, '#', nil, borderStyle)
+			s.SetContent(width-1, 0, '#', nil, borderStyle)
+			s.SetContent(width-1, height-1, '#', nil, borderStyle)
 
 			fly.EdgeCheck(width, height)
 			fly.Move()
