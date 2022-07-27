@@ -5,7 +5,15 @@ This is a terminal based animation demo written in Go.
 ## Show me the flies!
 
 ```sh
+# Run with a default number of 50 flies
 make run
+
+# Build and run with a defined number of flies
+make build
+./gofly -flies 5
+
+# Get help
+./gofly -h
 ```
 
 ## Example output

@@ -1,6 +1,7 @@
 package main
 
 import (
+	"flag"
 	"log"
 	"math/rand"
 	"os"
@@ -13,18 +14,19 @@ func main() {
 	rand.Seed(time.Now().UnixNano())
 
 	// How many flies do we want in our yard?
-	numFlies := 50
+	numFlies := flag.Int("flies", 50, "How many flies are you inviting?")
+	flag.Parse()
 
+	// Initiatlize our screen
 	s, err := getScreen()
 	if err != nil {
 		log.Fatalf("error: %v", err)
 	}
 
 	// Release the flies!
-	width, height := s.Size()
-	flies := make([]*Fly, numFlies)
-	for i := 0; i < numFlies; i++ {
-		flies[i] = NewFly(width, height)
+	flies := make([]*Fly, *numFlies)
+	for i := 0; i < *numFlies; i++ {
+		flies[i] = NewFly(s.Size())
 	}
 
 	// Initialize our backyard, attract the flies
