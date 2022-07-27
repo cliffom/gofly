@@ -10,24 +10,18 @@ import (
 // Fly is a digital representation of a fly
 // with position, velocity, color, and animation information
 type Fly struct {
-	x     int
-	y     int
-	vx    int
-	vy    int
-	color tcell.Color
-	frame int
+	x      int
+	y      int
+	vx     int
+	vy     int
+	color  tcell.Color
+	frame  int
+	frames []string
 }
 
 // Draw gives life to our little fly friend
 func (f *Fly) Draw() []rune {
-	frames := []string{
-		">\u25CF<",
-		"-\u25CF-",
-		">\u25CF<",
-		"-\u25CF-",
-	}
-
-	return []rune(frames[f.frame])
+	return []rune(f.frames[f.frame])
 }
 
 // Move *ahem* moves a fly into their next position
@@ -35,7 +29,7 @@ func (f *Fly) Move() {
 	f.x += f.vx
 	f.y += f.vy
 
-	if f.frame < 3 {
+	if f.frame < len(f.frames)-1 {
 		f.frame++
 	} else {
 		f.frame = 0
@@ -51,13 +45,19 @@ func (f *Fly) EdgeCheck(maxWidth, maxHeight int) {
 
 // NewFly returns a, you guessed it, pointer to a new fly
 func NewFly(w, h int) *Fly {
+	frames := []string{
+		">\u25CF<",
+		"-\u25CF-",
+	}
+
 	return &Fly{
-		x:     rand.Intn(w - 1),
-		y:     rand.Intn(h),
-		vx:    1,
-		vy:    1,
-		color: tcell.GetColor(randomcolor.GetRandomColorInHex()),
-		frame: rand.Intn(4),
+		x:      rand.Intn(w - 1),
+		y:      rand.Intn(h),
+		vx:     1,
+		vy:     1,
+		color:  tcell.GetColor(randomcolor.GetRandomColorInHex()),
+		frame:  rand.Intn(len(frames)),
+		frames: frames,
 	}
 }
 
