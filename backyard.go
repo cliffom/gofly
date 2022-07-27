@@ -20,21 +20,12 @@ func (b *Backyard) Simulate() {
 		s.Clear()
 		w, h := s.Size()
 
+		// Draw border
+		drawBorder(w, h, s, borderStyle)
+
+		// Release the flies!
 		for _, fly := range b.Flies {
-			runes := fly.Draw()
-
-			defStyle := tcell.StyleDefault.Background(tcell.ColorReset).Foreground(fly.color)
-			s.SetContent(fly.x, fly.y, runes[0], nil, defStyle)
-			s.SetContent(fly.x+1, fly.y, runes[1], nil, defStyle)
-
-			// Draw border at corners
-			s.SetContent(0, 0, '#', nil, borderStyle)
-			s.SetContent(0, h-1, '#', nil, borderStyle)
-			s.SetContent(w-1, 0, '#', nil, borderStyle)
-			s.SetContent(w-1, h-1, '#', nil, borderStyle)
-
-			fly.EdgeCheck(w, h)
-			fly.Move()
+			animateFly(w, h, s, fly)
 		}
 		s.Show()
 		time.Sleep(b.Frametime * time.Millisecond)
@@ -48,4 +39,22 @@ func NewBackyard(s tcell.Screen, f []*Fly, t time.Duration) *Backyard {
 		Flies:     f,
 		Frametime: t,
 	}
+}
+
+func drawBorder(w, h int, s tcell.Screen, style tcell.Style) {
+	s.SetContent(0, 0, '#', nil, style)
+	s.SetContent(0, h-1, '#', nil, style)
+	s.SetContent(w-1, 0, '#', nil, style)
+	s.SetContent(w-1, h-1, '#', nil, style)
+}
+
+func animateFly(w, h int, s tcell.Screen, fly *Fly) {
+	runes := fly.Draw()
+
+	defStyle := tcell.StyleDefault.Background(tcell.ColorReset).Foreground(fly.color)
+	s.SetContent(fly.x, fly.y, runes[0], nil, defStyle)
+	s.SetContent(fly.x+1, fly.y, runes[1], nil, defStyle)
+
+	fly.EdgeCheck(w, h)
+	fly.Move()
 }
