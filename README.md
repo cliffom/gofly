@@ -5,6 +5,9 @@ This is a terminal based animation demo written in Go.
 ## Show me the flies!
 
 ```sh
+# Get dependencies (needs to be run first)
+make dep
+
 # Run with a default number of 50 flies
 make run
 
