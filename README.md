@@ -21,7 +21,7 @@ make build
 
 ## Example output
 
-[![asciicast](https://asciinema.org/a/511151.svg)](https://asciinema.org/a/511151)
+[![asciicast](https://asciinema.org/a/511329.svg)](https://asciinema.org/a/511329)
 
 ## Inspiration
 
