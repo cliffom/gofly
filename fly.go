@@ -7,6 +7,11 @@ import (
 	"github.com/gdamore/tcell/v2"
 )
 
+var frames = []string{
+	">\u25CF<",
+	"-\u25CF-",
+}
+
 // Fly is a digital representation of a fly
 // with position, velocity, color, and animation information
 type Fly struct {
@@ -45,11 +50,6 @@ func (f *Fly) EdgeCheck(maxWidth, maxHeight int) {
 
 // NewFly returns a, you guessed it, pointer to a new fly
 func NewFly(w, h int) *Fly {
-	frames := []string{
-		">\u25CF<",
-		"-\u25CF-",
-	}
-
 	return &Fly{
 		x:      rand.Intn(w - 1),
 		y:      rand.Intn(h),
