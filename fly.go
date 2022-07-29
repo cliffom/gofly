@@ -41,9 +41,9 @@ func (f *Fly) Move() {
 	}
 }
 
-// EdgeCheck ensures our fly won't fly beyond the constraints
+// CheckBounds ensures our fly won't fly beyond the constraints
 // of the space they occupy
-func (f *Fly) EdgeCheck(maxWidth, maxHeight int) {
+func (f *Fly) CheckBounds(maxWidth, maxHeight int) {
 	x, y := f.GetPos()
 	f.vx = getVelocity(x, maxWidth-len(f.Draw()))
 	f.vy = getVelocity(y, maxHeight-1)
