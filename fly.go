@@ -48,6 +48,21 @@ func (f *Fly) EdgeCheck(maxWidth, maxHeight int) {
 	f.vy = getVelocity(f.y, maxHeight-1)
 }
 
+// GetColor returns a fly's color
+func (f *Fly) GetColor() tcell.Color {
+	return f.color
+}
+
+// GetXPos returns a fly's X position
+func (f *Fly) GetXPos() int {
+	return f.x
+}
+
+// GetYPos returns a fly's Y position
+func (f *Fly) GetYPos() int {
+	return f.y
+}
+
 // NewFly returns a, you guessed it, pointer to a new fly
 func NewFly(w, h int) *Fly {
 	return &Fly{

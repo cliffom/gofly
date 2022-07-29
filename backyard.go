@@ -23,9 +23,9 @@ func (b *Backyard) Simulate() {
 		// Draw border
 		drawBorder(w, h, s, borderStyle)
 
-		// Release the flies!
+		// The flies shall fly!
 		for _, fly := range b.Flies {
-			animateFly(w, h, s, fly)
+			animateCritter(w, h, s, fly)
 		}
 		s.Show()
 		time.Sleep(b.Frametime * time.Millisecond)
@@ -48,14 +48,14 @@ func drawBorder(w, h int, s tcell.Screen, style tcell.Style) {
 	s.SetContent(w-1, h-1, '\u25E2', nil, style)
 }
 
-func animateFly(w, h int, s tcell.Screen, fly *Fly) {
-	runes := fly.Draw()
+func animateCritter(w, h int, s tcell.Screen, critter Critter) {
+	runes := critter.Draw()
 
-	defStyle := tcell.StyleDefault.Background(tcell.ColorReset).Foreground(fly.color)
+	defStyle := tcell.StyleDefault.Background(tcell.ColorReset).Foreground(critter.GetColor())
 	for i := 0; i < len(runes); i++ {
-		s.SetContent(fly.x+i, fly.y, runes[i], nil, defStyle)
+		s.SetContent(critter.GetXPos()+i, critter.GetYPos(), runes[i], nil, defStyle)
 	}
 
-	fly.EdgeCheck(w, h)
-	fly.Move()
+	critter.EdgeCheck(w, h)
+	critter.Move()
 }
