@@ -77,11 +77,13 @@ func NewFly(w, h int) *Fly {
 func getVelocity(pos, limit int) int {
 	if pos <= 0 {
 		return 1
-	} else if pos >= limit {
-		return -1
-	} else {
-		return chaos()
 	}
+
+	if pos >= limit {
+		return -1
+	}
+
+	return chaos()
 }
 
 // chaos introduces chaotic/unpredictable movement
