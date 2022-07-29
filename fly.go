@@ -64,8 +64,8 @@ func NewFly(w, h int) *Fly {
 	return &Fly{
 		x:      rand.Intn(w - 1),
 		y:      rand.Intn(h),
-		vx:     1,
-		vy:     1,
+		vx:     0,
+		vy:     0,
 		color:  tcell.GetColor(randomcolor.GetRandomColorInHex()),
 		frame:  rand.Intn(len(frames)),
 		frames: frames,
