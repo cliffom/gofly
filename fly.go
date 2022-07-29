@@ -44,8 +44,9 @@ func (f *Fly) Move() {
 // EdgeCheck ensures our fly won't fly beyond the constraints
 // of the space they occupy
 func (f *Fly) EdgeCheck(maxWidth, maxHeight int) {
-	f.vx = getVelocity(f.x, maxWidth-len(f.Draw()))
-	f.vy = getVelocity(f.y, maxHeight-1)
+	x, y := f.GetPos()
+	f.vx = getVelocity(x, maxWidth-len(f.Draw()))
+	f.vy = getVelocity(y, maxHeight-1)
 }
 
 // GetColor returns a fly's color
@@ -53,14 +54,9 @@ func (f *Fly) GetColor() tcell.Color {
 	return f.color
 }
 
-// GetXPos returns a fly's X position
-func (f *Fly) GetXPos() int {
-	return f.x
-}
-
-// GetYPos returns a fly's Y position
-func (f *Fly) GetYPos() int {
-	return f.y
+// GetPos returns a fly's current position
+func (f *Fly) GetPos() (x, y int) {
+	return f.x, f.y
 }
 
 // NewFly returns a, you guessed it, pointer to a new fly

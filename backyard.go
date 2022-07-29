@@ -52,8 +52,9 @@ func animateCritter(w, h int, s tcell.Screen, critter Critter) {
 	runes := critter.Draw()
 
 	defStyle := tcell.StyleDefault.Background(tcell.ColorReset).Foreground(critter.GetColor())
+	x, y := critter.GetPos()
 	for i := 0; i < len(runes); i++ {
-		s.SetContent(critter.GetXPos()+i, critter.GetYPos(), runes[i], nil, defStyle)
+		s.SetContent(x+i, y, runes[i], nil, defStyle)
 	}
 
 	critter.EdgeCheck(w, h)

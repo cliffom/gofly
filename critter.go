@@ -7,6 +7,5 @@ type Critter interface {
 	Move()
 	EdgeCheck(w, h int)
 	GetColor() tcell.Color
-	GetXPos() int
-	GetYPos() int
+	GetPos() (int, int)
 }
