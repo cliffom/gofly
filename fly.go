@@ -29,6 +29,24 @@ func (f *Fly) Draw() []rune {
 	return []rune(f.frames[f.frame])
 }
 
+// UpdateVelocity updates a fly's movement based on the
+// width and height of the area it occupies. If the next movement
+// would result in going beyond the boundaries, a fly will change
+// direction. Otherwise let the flight be random (chaos)
+func (f *Fly) UpdateVelocity(w, h int) {
+	getVel := func(pos, max int) int {
+		if pos <= 0 {
+			return 1
+		} else if pos >= max {
+			return -1
+		}
+		return chaos()
+	}
+
+	f.vx = getVel(f.x, w-len(f.Draw()))
+	f.vy = getVel(f.y, h-1)
+}
+
 // Move *ahem* moves a fly into their next position
 func (f *Fly) Move() {
 	f.x += f.vx
@@ -39,14 +57,6 @@ func (f *Fly) Move() {
 	} else {
 		f.frame = 0
 	}
-}
-
-// CheckBounds ensures our fly won't fly beyond the constraints
-// of the space they occupy
-func (f *Fly) CheckBounds(maxWidth, maxHeight int) {
-	x, y := f.GetPos()
-	f.vx = getVelocity(x, maxWidth-len(f.Draw()))
-	f.vy = getVelocity(y, maxHeight-1)
 }
 
 // GetColor returns a fly's color
@@ -64,26 +74,12 @@ func NewFly(w, h int) *Fly {
 	return &Fly{
 		x:      rand.Intn(w - 1),
 		y:      rand.Intn(h),
-		vx:     0,
-		vy:     0,
+		vx:     rand.Intn(2),
+		vy:     rand.Intn(2),
 		color:  tcell.GetColor(randomcolor.GetRandomColorInHex()),
 		frame:  rand.Intn(len(frames)),
 		frames: frames,
 	}
-}
-
-// getVelocity determines, from a given 1-dimensional position, if
-// the direction should change or if we can fly chaotically
-func getVelocity(pos, limit int) int {
-	if pos <= 0 {
-		return 1
-	}
-
-	if pos >= limit {
-		return -1
-	}
-
-	return chaos()
 }
 
 // chaos introduces chaotic/unpredictable movement

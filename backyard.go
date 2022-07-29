@@ -57,6 +57,6 @@ func animateCritter(w, h int, s tcell.Screen, critter Critter) {
 		s.SetContent(x+i, y, runes[i], nil, defStyle)
 	}
 
-	critter.CheckBounds(w, h)
+	critter.UpdateVelocity(w, h)
 	critter.Move()
 }

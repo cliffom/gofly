@@ -22,7 +22,7 @@ func BenchmarkFly(b *testing.B) {
 
 	for i := 0; i < b.N; i++ {
 		fly.Draw()
-		fly.CheckBounds(maxWidth, maxHeight)
+		fly.UpdateVelocity(maxWidth, maxHeight)
 		fly.Move()
 	}
 }
@@ -42,7 +42,7 @@ func BenchmarkFlies(b *testing.B) {
 	for i := 0; i < b.N; i++ {
 		for _, fly := range flies {
 			fly.Draw()
-			fly.CheckBounds(maxWidth, maxHeight)
+			fly.UpdateVelocity(maxWidth, maxHeight)
 			fly.Move()
 		}
 	}

@@ -5,7 +5,7 @@ import "github.com/gdamore/tcell/v2"
 type Critter interface {
 	Draw() []rune
 	Move()
-	CheckBounds(w, h int)
+	UpdateVelocity(w, h int)
 	GetColor() tcell.Color
-	GetPos() (int, int)
+	GetPos() (x, y int)
 }
