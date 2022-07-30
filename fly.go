@@ -71,8 +71,8 @@ func NewFly(w, h int) *Fly {
 	return &Fly{
 		x:      rand.Intn(w - 1),
 		y:      rand.Intn(h),
-		vx:     rand.Intn(2),
-		vy:     rand.Intn(2),
+		vx:     0,
+		vy:     0,
 		color:  NewRandomColor(),
 		frame:  rand.Intn(len(frames)),
 		frames: frames,
