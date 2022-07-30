@@ -4,7 +4,6 @@ import (
 	"math/rand"
 
 	"github.com/AvraamMavridis/randomcolor"
-	"github.com/gdamore/tcell/v2"
 )
 
 var frames = []string{
@@ -19,7 +18,7 @@ type Fly struct {
 	y      int
 	vx     int
 	vy     int
-	color  tcell.Color
+	color  string
 	frame  int
 	frames []string
 }
@@ -60,7 +59,7 @@ func (f *Fly) Move() {
 }
 
 // GetColor returns a fly's color
-func (f *Fly) GetColor() tcell.Color {
+func (f *Fly) GetColor() string {
 	return f.color
 }
 
@@ -76,7 +75,7 @@ func NewFly(w, h int) *Fly {
 		y:      rand.Intn(h),
 		vx:     rand.Intn(2),
 		vy:     rand.Intn(2),
-		color:  tcell.GetColor(randomcolor.GetRandomColorInHex()),
+		color:  randomcolor.GetRandomColorInHex(),
 		frame:  rand.Intn(len(frames)),
 		frames: frames,
 	}

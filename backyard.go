@@ -51,7 +51,8 @@ func drawBorder(w, h int, s tcell.Screen, style tcell.Style) {
 func animateCritter(w, h int, s tcell.Screen, critter Critter) {
 	runes := critter.Draw()
 
-	defStyle := tcell.StyleDefault.Background(tcell.ColorReset).Foreground(critter.GetColor())
+	color := tcell.GetColor(critter.GetColor())
+	defStyle := tcell.StyleDefault.Background(tcell.ColorReset).Foreground(color)
 	x, y := critter.GetPos()
 	for i := 0; i < len(runes); i++ {
 		s.SetContent(x+i, y, runes[i], nil, defStyle)
