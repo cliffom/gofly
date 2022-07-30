@@ -2,8 +2,6 @@ package main
 
 import (
 	"math/rand"
-
-	"github.com/AvraamMavridis/randomcolor"
 )
 
 var frames = []string{
@@ -18,7 +16,7 @@ type Fly struct {
 	y      int
 	vx     int
 	vy     int
-	color  string
+	color  Color
 	frame  int
 	frames []string
 }
@@ -59,7 +57,7 @@ func (f *Fly) Move() {
 }
 
 // GetColor returns a fly's color
-func (f *Fly) GetColor() string {
+func (f *Fly) GetColor() Color {
 	return f.color
 }
 
@@ -75,7 +73,7 @@ func NewFly(w, h int) *Fly {
 		y:      rand.Intn(h),
 		vx:     rand.Intn(2),
 		vy:     rand.Intn(2),
-		color:  randomcolor.GetRandomColorInHex(),
+		color:  NewRandomColor(),
 		frame:  rand.Intn(len(frames)),
 		frames: frames,
 	}
