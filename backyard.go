@@ -32,6 +32,31 @@ func (b *Backyard) Simulate() {
 	}
 }
 
+// SpeedUp decreases the delay between frames, thus speeding up the
+// simulation
+func (b *Backyard) SpeedUp() bool {
+	minFrametime := 100
+	step := 25
+	if b.Frametime >= time.Duration(minFrametime+step) {
+		b.Frametime -= time.Duration(step)
+		return true
+	}
+
+	return false
+}
+
+// SpeedDown increases the delay between frames, thus slowing down the
+// simulation
+func (b *Backyard) SpeedDown() bool {
+	maxFrametime := 2000
+	step := 25
+	if b.Frametime <= time.Duration(maxFrametime-step) {
+		b.Frametime += time.Duration(step)
+	}
+
+	return false
+}
+
 // NewBackyard returns a backyard for our flies to play in
 func NewBackyard(s tcell.Screen, f []*Fly, t time.Duration) *Backyard {
 	return &Backyard{
