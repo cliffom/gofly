@@ -39,16 +39,16 @@ func main() {
 		flies[i] = NewFly(s.Size())
 	}
 
-	// Initialize our backyard, attract the flies
-	backyard := NewBackyard(s, flies, time.Duration(*frameTime))
+	// Initialize our b, attract the flies
+	b := NewBackyard(s, flies, time.Duration(*frameTime))
 
 	// Run the simulation
-	go backyard.Simulate()
+	go b.Simulate()
 
 	// Enable updates on screen resizing as well as give us an
 	// escape hatch to quit the simulation
 	for {
-		eventHandler(event, quit, s)
+		eventHandler(event, quit, s, b)
 	}
 }
 
@@ -70,19 +70,25 @@ func getScreen() (tcell.Screen, error) {
 	return s, nil
 }
 
-func eventHandler(event chan tcell.Event, quit chan struct{}, s tcell.Screen) {
+func eventHandler(event chan tcell.Event, quit chan struct{}, s tcell.Screen, b *Backyard) {
 	select {
 	case ev := <-event:
 		switch event := ev.(type) {
 		case *tcell.EventResize:
 			s.Sync()
 		case *tcell.EventKey:
-			if event.Key() == tcell.KeyEscape || event.Key() == tcell.KeyCtrlC {
-				s.Fini()
-				os.Exit(0)
-			}
+			handleKeyPress(event.Key(), s, b)
 		}
 	case <-quit:
+		s.Fini()
+		os.Exit(0)
+	}
+}
+
+func handleKeyPress(k tcell.Key, s tcell.Screen, b *Backyard) {
+	switch k {
+	case tcell.KeyEscape:
+		s.Clear()
 		s.Fini()
 		os.Exit(0)
 	}
