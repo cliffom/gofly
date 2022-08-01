@@ -32,6 +32,32 @@ func (b *Backyard) Simulate() {
 	}
 }
 
+// AddFly adds a single fly to the simulation
+func (b *Backyard) AddFly() {
+	fly := NewFly(b.Screen.Size())
+	b.Flies = append(b.Flies, fly)
+}
+
+// RemoveFly removes a single fly if len(b.Flies) > 0
+func (b *Backyard) RemoveFly() bool {
+	if len(b.Flies) > 0 {
+		b.Flies = b.Flies[1:]
+		return true
+	}
+
+	return false
+}
+
+// RemoveFlies removes all flies if len(b.Flies) > 0
+func (b *Backyard) RemoveFlies() bool {
+	if len(b.Flies) > 0 {
+		b.Flies = b.Flies[:0]
+		return true
+	}
+
+	return false
+}
+
 // SpeedUp decreases the delay between frames, thus speeding up the
 // simulation
 func (b *Backyard) SpeedUp() bool {
@@ -52,6 +78,7 @@ func (b *Backyard) SpeedDown() bool {
 	step := 25
 	if b.Frametime <= time.Duration(maxFrametime-step) {
 		b.Frametime += time.Duration(step)
+		return true
 	}
 
 	return false

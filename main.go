@@ -85,6 +85,7 @@ func eventHandler(event chan tcell.Event, quit chan struct{}, s tcell.Screen, b 
 	}
 }
 
+// handleKeyPress handles key press events from the user
 func handleKeyPress(k tcell.Key, s tcell.Screen, b *Backyard) {
 	switch k {
 	case tcell.KeyUp:
@@ -93,6 +94,16 @@ func handleKeyPress(k tcell.Key, s tcell.Screen, b *Backyard) {
 		}
 	case tcell.KeyDown:
 		if !b.SpeedDown() {
+			s.Beep()
+		}
+	case tcell.KeyRight:
+		b.AddFly()
+	case tcell.KeyLeft:
+		if !b.RemoveFly() {
+			s.Beep()
+		}
+	case tcell.KeyDelete:
+		if !b.RemoveFlies() {
 			s.Beep()
 		}
 	case tcell.KeyEscape:
