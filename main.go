@@ -87,6 +87,14 @@ func eventHandler(event chan tcell.Event, quit chan struct{}, s tcell.Screen, b 
 
 func handleKeyPress(k tcell.Key, s tcell.Screen, b *Backyard) {
 	switch k {
+	case tcell.KeyUp:
+		if !b.SpeedUp() {
+			s.Beep()
+		}
+	case tcell.KeyDown:
+		if !b.SpeedDown() {
+			s.Beep()
+		}
 	case tcell.KeyEscape:
 		s.Clear()
 		s.Fini()

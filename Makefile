@@ -10,4 +10,4 @@ clean:
 	rm ${BINARY_NAME}
 
 run:
-	go run main.go fly.go backyard.go
+	go run main.go fly.go backyard.go critter.go color.go
