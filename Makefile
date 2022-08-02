@@ -6,6 +6,10 @@ dep:
 build:
 	go build -o ${BINARY_NAME} *.go
 
+debug:
+	go build -gcflags "all=-N -l" -o ${BINARY_NAME} *.go
+	./gofly -flies 1 -frametime 100
+
 clean:
 	rm ${BINARY_NAME}
 
