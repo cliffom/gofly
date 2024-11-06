@@ -5,8 +5,8 @@ import (
 )
 
 var frames = []string{
-	">\u25CF<",
-	"-\u25CF-",
+	">*<",
+	"-*-",
 }
 
 // Fly is a digital representation of a fly
